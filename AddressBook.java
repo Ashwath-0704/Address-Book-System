@@ -72,16 +72,26 @@ class Addressbook1 {
 
 		}
 	}
+
+	/*
+	 * UC4
+	 */
+	public void DeletePerson(String name) {
+		for (int i = 0; i < P_list.size(); i++) {
+			Person p = P_list.get(i);
+			if (name.equals(p.First_name)) {
+				P_list.remove(i);
+				System.out.println("Person got deleted");
+				System.out.println(P_list);
+			} else
+				System.out.println("Person with this given name not found!!!!!");
+		}
+	}
 }
 
 class AddressBook {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
-		/*
-		 * UC1 Ability to create a Contacts in Address Book with first and last names,
-		 * address, city, state, zip, phone number and email...
-		 */
 //			Person s1 = new Person("Ashwath", "Naidu", "123ash,nea rsai baba temple road,", "934058XXX", "560037",
 //					"Bangalour", "Karnataka", "Ashwath@xyz.in");
 //			s1.print();
@@ -90,5 +100,7 @@ class AddressBook {
 		b.AddPreson(); // first person
 		b.AddPreson(); // second person
 		b.EditePeson("ashwath", "naidu");
+		b.DeletePerson("naidu");
+
 	}
 }
