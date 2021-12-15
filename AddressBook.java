@@ -59,18 +59,36 @@ class Addressbook1 {
 			p.print();
 		}
 	}
+
+	/*
+	 * UC3
+	 */
+	public void EditePeson(String name, String name1) {
+		for (Person i : P_list) {
+			if (name.equals(i.First_name)) {
+				i.First_name = name1;
+				i.print();
+			}
+
+		}
+	}
 }
 
 class AddressBook {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+
+		/*
+		 * UC1 Ability to create a Contacts in Address Book with first and last names,
+		 * address, city, state, zip, phone number and email...
+		 */
 //			Person s1 = new Person("Ashwath", "Naidu", "123ash,nea rsai baba temple road,", "934058XXX", "560037",
 //					"Bangalour", "Karnataka", "Ashwath@xyz.in");
 //			s1.print();
 
 		Addressbook1 b = new Addressbook1();
 		b.AddPreson(); // first person
-		 b.AddPreson(); // second person
-
+		b.AddPreson(); // second person
+		b.EditePeson("ashwath", "naidu");
 	}
 }
