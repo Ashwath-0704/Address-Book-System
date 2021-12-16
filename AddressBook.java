@@ -106,6 +106,43 @@ class Addressbook1 {
 	}
 }
 
+/*
+ * UC6
+ */
+class AddressHashMap {
+	HashMap<String, Person> map = new HashMap<>();
+
+//	public static HashMap<String, ArrayList<ContactPerson>>
+	public void AddPresonHashmap() {
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.print("How many person you want to add :");
+		int Count = sc.nextInt();
+		for (int i = 1; i <= Count; i++) {
+			String First_name = JOptionPane.showInputDialog("Enter First name");
+			String Last_name = JOptionPane.showInputDialog("Enter Last name");
+			String address = JOptionPane.showInputDialog("Enter address");
+			String phoneNum = JOptionPane.showInputDialog("Enter phone number");
+			String zip = JOptionPane.showInputDialog("Enter zip");
+			String city = JOptionPane.showInputDialog("Enter city");
+			String state = JOptionPane.showInputDialog("Enter state");
+			String email = JOptionPane.showInputDialog("Enter Mail");
+
+			Person data = new Person(First_name, Last_name, address, phoneNum, zip, city, state, email);
+
+			// add the above PersonInfo object to arraylist
+			map.put(email, data);
+		}
+		printmap(map);
+	}
+
+	public void printmap(HashMap<String, Person> map) {
+		for (String map1 : map.keySet()) {
+			System.out.println("Key: " + map1 + " Value: " + map.get(map1));
+		}
+	}
+}
+
 class AddressBook {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -123,6 +160,9 @@ class AddressBook {
 //		b.AddPreson(); // second person // UC2
 //		b.EditePeson("ashwath", "naidu"); // UC3
 //		b.DeletePerson("naidu"); // UC4
-		b.AddMultiPerson(); //UC5
+//		b.AddMultiPerson(); //UC5
+
+		AddressHashMap n = new AddressHashMap();
+		n.AddPresonHashmap();// UC6
 	}
 }
