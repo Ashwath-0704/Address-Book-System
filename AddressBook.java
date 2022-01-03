@@ -118,6 +118,33 @@ class Addressbook1 {
 			p.print();
 		}
 	}
+
+	/*
+	 * Ability to search Person in a City or State
+	 */
+	public void searchPersonsCity() {
+		Hashtable<Integer, String> hashTable = new Hashtable<Integer, String>();
+
+		String name, cityOrState, personName;
+		name = JOptionPane.showInputDialog(
+				"choose what you want to search \nFind city or state by person? -> press (1) \nFind perons by city or state? -> press  (2)\nFind the contact persons by city or state? -> (3)");
+		switch (name) {
+		/*
+		 * UC8 :- Ability to search Person in a City or State across the multiple
+		 * AddressBook - Search Result can show multiple person in the city or state
+		 */
+		case "1":
+			personName = JOptionPane
+					.showInputDialog("Enter the person first and last name without space (eg:- KrishnaReddy)");
+			for (int i = 0; i < P_list.size(); i++) {
+				Person p = P_list.get(i);
+				if (personName.equals(p.First_name.concat(p.Last_name))) {
+					hashTable.put(i + 1, p.city);
+				} else
+					continue;
+			}
+			System.out.println(personName + " found in " + hashTable);
+			break;
 }
 
 /*
@@ -190,7 +217,7 @@ class AddressBook {
 //		b.EditePeson("ashwath", "naidu"); // UC3
 //		b.DeletePerson("naidu"); // UC4
 		b.addMultiPerson(); // UC5
-//		b.searchPersonsCity(); // UC8 and UC9
+		b.searchPersonsCity(); // UC8 and UC9
 
 //		AddressHashMap n = new AddressHashMap();
 //		n.AddPresonHashmap();// UC6 and UC7
