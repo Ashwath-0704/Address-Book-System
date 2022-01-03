@@ -164,60 +164,81 @@ class Addressbook1 {
 			System.out.println("The number of the contact persons in " + cityOrState + " are " + cityOrStateCount);
 			System.out.println("In " + cityOrState + " we found " + hashTable);
 			break;
+
+		/*
+		 * UC10 :- Ability to get number of contact persons i.e. count by City or State
+		 * - Search Result will show count by city and by state
+		 */
+		case "3":
+			cityOrState = JOptionPane.showInputDialog("Enter the city or state name");
+			for (int i = 0; i < P_list.size(); i++) {
+				Person p = P_list.get(i);
+				if ((cityOrState.equals(p.city)) || cityOrState.equals(p.state)) {
+					System.out.println(p.First_name.concat(p.Last_name));
+					hashTable.put(i + 1, p.phoneNum);
+				} else
+					continue;
+			}
+			System.out.println("In " + cityOrState + " we found " + hashTable);
+			break;
+		default:
+			System.out.println("Invalid user input");
+			break;
 		}
 	}
 }
-	/*
-	 * UC6 :- Refactor to add multiple Address Book to the System. Each Address Book
-	 * has a unique Name - Use Console to add new Address Book - Maintain Dictionary
-	 * of Address Book Name to Address Book
-	 * 
-	 */
-	class AddressHashMap {
-		static String First_name, Last_name, address, phoneNum, zip, city, state, email;
-		HashMap<String, Person> map = new HashMap<>();
 
-		public void AddPresonHashmap() {
+/*
+ * UC6 :- Refactor to add multiple Address Book to the System. Each Address Book
+ * has a unique Name - Use Console to add new Address Book - Maintain Dictionary
+ * of Address Book Name to Address Book
+ * 
+ */
+class AddressHashMap {
+	static String First_name, Last_name, address, phoneNum, zip, city, state, email;
+	HashMap<String, Person> map = new HashMap<>();
 
-			Scanner sc = new Scanner(System.in);
-			System.out.print("How many person you want to add :");
-			int Count = sc.nextInt();
-			for (int i = 1; i <= Count; i++) {
-				First_name = JOptionPane.showInputDialog("Enter First name");
-				Last_name = JOptionPane.showInputDialog("Enter Last name");
-				address = JOptionPane.showInputDialog("Enter address");
-				phoneNum = JOptionPane.showInputDialog("Enter phone number");
-				zip = JOptionPane.showInputDialog("Enter zip");
-				city = JOptionPane.showInputDialog("Enter city");
-				state = JOptionPane.showInputDialog("Enter state");
-				email = JOptionPane.showInputDialog("Enter Mail");
-				Person data = new Person(First_name, Last_name, address, phoneNum, zip, city, state, email);
+	public void AddPresonHashmap() {
 
-				/*
-				 * UC7 :- Ability to ensure there is no Duplicate Entry of the same Person in a
-				 * particular Address Book - Duplicate Check is done on Person Name while adding
-				 * person to Address Book. - Use Collection Methods to Search Person by Name for
-				 * Duplicate Entry
-				 * 
-				 */
-				if (map.containsKey(First_name.concat(Last_name))) {
-					System.out.println(
-							"\nError : " + First_name + " " + Last_name + " already exists on this address book.");
-					break;
-				}
-				// add the above PersonInfo object to arraylist
-				map.put(First_name.concat(Last_name), data);
+		Scanner sc = new Scanner(System.in);
+		System.out.print("How many person you want to add :");
+		int Count = sc.nextInt();
+		for (int i = 1; i <= Count; i++) {
+			First_name = JOptionPane.showInputDialog("Enter First name");
+			Last_name = JOptionPane.showInputDialog("Enter Last name");
+			address = JOptionPane.showInputDialog("Enter address");
+			phoneNum = JOptionPane.showInputDialog("Enter phone number");
+			zip = JOptionPane.showInputDialog("Enter zip");
+			city = JOptionPane.showInputDialog("Enter city");
+			state = JOptionPane.showInputDialog("Enter state");
+			email = JOptionPane.showInputDialog("Enter Mail");
+			Person data = new Person(First_name, Last_name, address, phoneNum, zip, city, state, email);
+
+			/*
+			 * UC7 :- Ability to ensure there is no Duplicate Entry of the same Person in a
+			 * particular Address Book - Duplicate Check is done on Person Name while adding
+			 * person to Address Book. - Use Collection Methods to Search Person by Name for
+			 * Duplicate Entry
+			 * 
+			 */
+			if (map.containsKey(First_name.concat(Last_name))) {
+				System.out
+						.println("\nError : " + First_name + " " + Last_name + " already exists on this address book.");
+				break;
 			}
-			printMap(map);
+			// add the above PersonInfo object to arraylist
+			map.put(First_name.concat(Last_name), data);
 		}
-
-		public void printMap(HashMap<String, Person> map) {
-			for (String map1 : map.keySet()) {
-				System.out.println("Key: " + map1 + " Value: " + map.get(map1));
-			}
-		}
-
+		printMap(map);
 	}
+
+	public void printMap(HashMap<String, Person> map) {
+		for (String map1 : map.keySet()) {
+			System.out.println("Key: " + map1 + " Value: " + map.get(map1));
+		}
+	}
+
+}
 
 class AddressBook {
 	public static void main(String[] args) {
