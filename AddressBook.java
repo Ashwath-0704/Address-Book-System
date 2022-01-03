@@ -1,11 +1,16 @@
 package AddressBook;
 
 import java.util.*;
+import java.util.Map.Entry;
+
 import javax.swing.*;
 
 /*
- * UC1 Ability to create a Contacts in Address Book with first and last names,
- * address, city, state, zip, phone number and email...
+ * UC1 :- Ability to create a Contacts in AddressBook with first and last names, address,city, state, zip, phone number and email...
+ * Every UC is in a separate Git Branch and then merged with main
+ * Naming Convention, Indentation, etc Code Hygiene will be checked during
+ * Review Git Check In Comments and Version History will be monitored
+ * 
  */
 class Person {
 
@@ -27,32 +32,38 @@ class Person {
 		System.out.println("\nFirst Name : " + First_name + "\nLast Name : " + Last_name + "\nAddress : " + address
 				+ "\nEmial : " + email + "\nPhone No : " + phoneNum + "\nZip Code : " + zip + "\nCity : " + city
 				+ "\nState : " + state);
-		System.out.println(
-				"\n\n*****************************************************************************************");
+		System.out.println("\n\n*****************************************************************************");
 	}
 }
 
 class Addressbook1 {
 
 	ArrayList<Person> P_list = new ArrayList<>();
+	static String First_name, Last_name, address, phoneNum, zip, city, state, email;
+	static int cityAndStateCount = 0;
 
 	/*
-	 * 
-	 * UC2
+	 * UC2 :- Ability to add a new Contact to Address Book - Use Console to add
+	 * person details from AddressBookMain class - Use Object Oriented Concepts to
+	 * manage relationship between AddressBook and Contact Person
 	 */
 	public void AddPreson() {
 
-		String First_name = JOptionPane.showInputDialog("Enter First name");
-		String Last_name = JOptionPane.showInputDialog("Enter Last name");
-		String address = JOptionPane.showInputDialog("Enter address");
-		String phoneNum = JOptionPane.showInputDialog("Enter phone number");
-		String zip = JOptionPane.showInputDialog("Enter zip");
-		String city = JOptionPane.showInputDialog("Enter city");
-		String state = JOptionPane.showInputDialog("Enter state");
-		String email = JOptionPane.showInputDialog("Enter Mail");
+		First_name = JOptionPane.showInputDialog("Enter First name");
+		Last_name = JOptionPane.showInputDialog("Enter Last name");
+		address = JOptionPane.showInputDialog("Enter address");
+		phoneNum = JOptionPane.showInputDialog("Enter phone number");
+		zip = JOptionPane.showInputDialog("Enter zip");
+		city = JOptionPane.showInputDialog("Enter city");
+		state = JOptionPane.showInputDialog("Enter state");
+		email = JOptionPane.showInputDialog("Enter Mail");
 
 		Person data = new Person(First_name, Last_name, address, phoneNum, zip, city, state, email);
-
+//		if(P_list.contains(city)) {
+//			System.out.println("city name is given already!"+city);
+//		}else {
+//			cityAndStateCount++;
+//		}
 		// add the above PersonInfo object to arraylist
 		P_list.add(data);
 		P_list.toString();
@@ -62,7 +73,8 @@ class Addressbook1 {
 	}
 
 	/*
-	 * UC3
+	 * UC3 :- Ability to edit existing contact person using their name - Use Console
+	 * to edit person details
 	 */
 	public void EditePeson(String name, String name1) {
 		for (Person i : P_list) {
@@ -75,7 +87,8 @@ class Addressbook1 {
 	}
 
 	/*
-	 * UC4
+	 * UC4 :- Ability to delete a person using person's name - Use Console to delete
+	 * a person.
 	 */
 	public void DeletePerson(String name) {
 		for (int i = 0; i < P_list.size(); i++) {
@@ -90,10 +103,11 @@ class Addressbook1 {
 	}
 
 	/*
-	 * UC5 Ability to add multiple person to Address Book
+	 * UC5 :- Ability to add multiple person to Address Book - Use Console to add
+	 * person details one at a time - Use Collection Class to maintain multiple
+	 * contact persons in Address Books
 	 */
-	public void AddMultiPerson() {
-
+	public void addMultiPerson() {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("How many person you want to add :");
 		int Count = sc.nextInt();
@@ -107,40 +121,55 @@ class Addressbook1 {
 }
 
 /*
- * UC6
+ * UC6 :- Refactor to add multiple Address Book to the System. Each Address Book
+ * has a unique Name - Use Console to add new Address Book - Maintain Dictionary
+ * of Address Book Name to Address Book
+ * 
  */
 class AddressHashMap {
+	static String First_name, Last_name, address, phoneNum, zip, city, state, email;
 	HashMap<String, Person> map = new HashMap<>();
 
-//	public static HashMap<String, ArrayList<ContactPerson>>
 	public void AddPresonHashmap() {
-		
+
 		Scanner sc = new Scanner(System.in);
 		System.out.print("How many person you want to add :");
 		int Count = sc.nextInt();
 		for (int i = 1; i <= Count; i++) {
-			String First_name = JOptionPane.showInputDialog("Enter First name");
-			String Last_name = JOptionPane.showInputDialog("Enter Last name");
-			String address = JOptionPane.showInputDialog("Enter address");
-			String phoneNum = JOptionPane.showInputDialog("Enter phone number");
-			String zip = JOptionPane.showInputDialog("Enter zip");
-			String city = JOptionPane.showInputDialog("Enter city");
-			String state = JOptionPane.showInputDialog("Enter state");
-			String email = JOptionPane.showInputDialog("Enter Mail");
-
+			First_name = JOptionPane.showInputDialog("Enter First name");
+			Last_name = JOptionPane.showInputDialog("Enter Last name");
+			address = JOptionPane.showInputDialog("Enter address");
+			phoneNum = JOptionPane.showInputDialog("Enter phone number");
+			zip = JOptionPane.showInputDialog("Enter zip");
+			city = JOptionPane.showInputDialog("Enter city");
+			state = JOptionPane.showInputDialog("Enter state");
+			email = JOptionPane.showInputDialog("Enter Mail");
 			Person data = new Person(First_name, Last_name, address, phoneNum, zip, city, state, email);
 
+			/*
+			 * UC7 :- Ability to ensure there is no Duplicate Entry of the same Person in a
+			 * particular Address Book - Duplicate Check is done on Person Name while adding
+			 * person to Address Book. - Use Collection Methods to Search Person by Name for
+			 * Duplicate Entry
+			 * 
+			 */
+			if (map.containsKey(First_name.concat(Last_name))) {
+				System.out
+						.println("\nError : " + First_name + " " + Last_name + " already exists on this address book.");
+				break;
+			}
 			// add the above PersonInfo object to arraylist
-			map.put(email, data);
+			map.put(First_name.concat(Last_name), data);
 		}
-		printmap(map);
+		printMap(map);
 	}
 
-	public void printmap(HashMap<String, Person> map) {
+	public void printMap(HashMap<String, Person> map) {
 		for (String map1 : map.keySet()) {
 			System.out.println("Key: " + map1 + " Value: " + map.get(map1));
 		}
 	}
+
 }
 
 class AddressBook {
@@ -160,9 +189,10 @@ class AddressBook {
 //		b.AddPreson(); // second person // UC2
 //		b.EditePeson("ashwath", "naidu"); // UC3
 //		b.DeletePerson("naidu"); // UC4
-//		b.AddMultiPerson(); //UC5
+		b.addMultiPerson(); // UC5
+//		b.searchPersonsCity(); // UC8 and UC9
 
-		AddressHashMap n = new AddressHashMap();
-		n.AddPresonHashmap();// UC6
+//		AddressHashMap n = new AddressHashMap();
+//		n.AddPresonHashmap();// UC6 and UC7
 	}
 }
