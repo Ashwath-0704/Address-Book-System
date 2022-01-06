@@ -1,9 +1,15 @@
 package AddressBook;
 
+import java.io.PrintWriter;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.function.Function;
 
 import javax.swing.*;
+
+import Model.Employee;
+
+import java.util.stream.*;
 
 /*
  * UC1 :- Ability to create a Contacts in AddressBook with first and last names, address,city, state, zip, phone number and email...
@@ -28,6 +34,76 @@ class Person {
 		email = Mail;
 	}
 
+	public String getFirst_name() {
+		return First_name;
+	}
+
+	public void setFirst_name(String first_name) {
+		First_name = first_name;
+	}
+
+	public String getLast_name() {
+		return Last_name;
+	}
+
+	public void setLast_name(String last_name) {
+		Last_name = last_name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhoneNum() {
+		return phoneNum;
+	}
+
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
+	}
+
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return "Person [First_name=" + First_name + ", Last_name=" + Last_name + ", address=" + address + ", phoneNum="
+				+ phoneNum + ", zip=" + zip + ", city=" + city + ", state=" + state + ", email=" + email + "]";
+	}
+
 	public void print() {
 		System.out.println("\nFirst Name : " + First_name + "\nLast Name : " + Last_name + "\nAddress : " + address
 				+ "\nEmial : " + email + "\nPhone No : " + phoneNum + "\nZip Code : " + zip + "\nCity : " + city
@@ -38,7 +114,7 @@ class Person {
 
 class Addressbook1 {
 
-	ArrayList<Person> P_list = new ArrayList<>();
+	static ArrayList<Person> P_list = new ArrayList<>();
 	static String First_name, Last_name, address, phoneNum, zip, city, state, email;
 	static int cityAndStateCount = 0;
 
@@ -59,13 +135,17 @@ class Addressbook1 {
 		email = JOptionPane.showInputDialog("Enter Mail");
 
 		Person data = new Person(First_name, Last_name, address, phoneNum, zip, city, state, email);
-//		if(P_list.contains(city)) {
-//			System.out.println("city name is given already!"+city);
-//		}else {
-//			cityAndStateCount++;
+//		Set<Person> updatedMarks= P_list.stream()
+//              .filter(t->Collections.frequency(P_list, data)).collect(Collectors.toSet());
+
+//		if (P_list.contains(First_name.concat(Last_name))) {
+//			System.out.println("\nError : " + First_name + " " + Last_name + " already exists on this address book.");
+////			break;
 //		}
+
 		// add the above PersonInfo object to arraylist
 		P_list.add(data);
+
 		P_list.toString();
 //		for (Person p : P_list) {
 //			p.print();
@@ -123,11 +203,11 @@ class Addressbook1 {
 	 * Ability to search Person in a City or State
 	 */
 	public void searchPersonsCity() {
-		Hashtable<Integer, String> hashTable = new Hashtable<Integer, String>();
+		Hashtable<Integer, Person> hashTable = new Hashtable<Integer, Person>();
 
 		String name, cityOrState, personName;
 		name = JOptionPane.showInputDialog(
-				"choose what you want to search \nFind city or state by person? -> press (1) \nFind perons by city or state? -> press  (2)\nFind the contact persons by city or state? -> (3)");
+				"choose what you want to search \nFind city or state by person? -> press (1) \nFind perons by city or state? -> press  (2)\nFind the contact persons by city or state? -> (3)\nFind the sorted the by city's? --> (4)\nFind the sorted the by zip code? --> (5)");
 		switch (name) {
 		/*
 		 * UC8 :- Ability to search Person in a City or State across the multiple
@@ -136,14 +216,13 @@ class Addressbook1 {
 		case "1":
 			personName = JOptionPane
 					.showInputDialog("Enter the person first and last name without space (eg:- KrishnaReddy)");
-			for (int i = 0; i < P_list.size(); i++) {
-				Person p = P_list.get(i);
-				if (personName.equals(p.First_name.concat(p.Last_name))) {
-					hashTable.put(i + 1, p.city);
-				} else
-					continue;
+			List<Person> list1 = P_list.stream()
+					.filter(p_Name -> p_Name.First_name.concat(Last_name).equals(personName))
+					.collect(Collectors.toList());
+			for (Person p : list1) {
+				System.out.println(personName + " found in city : " + p.city + " and state : " + p.state);
+//				hashTable.put(, p)
 			}
-			System.out.println(personName + " found in " + hashTable);
 			break;
 		/*
 		 * UC9 :- Ability to view Persons by City or State - Maintain Dictionary of City
@@ -151,18 +230,12 @@ class Addressbook1 {
 		 * Dictionary
 		 */
 		case "2":
-			cityOrState = JOptionPane.showInputDialog("Enter the city or state name");
-			int cityOrStateCount = 0;
-			for (int i = 0; i < P_list.size(); i++) {
-				Person p = P_list.get(i);
-				if ((cityOrState.equals(p.city)) || cityOrState.equals(p.state)) {
-					hashTable.put(i + 1, (p.First_name.concat(p.Last_name)));
-					cityOrStateCount++;
-				} else
-					continue;
+			cityOrState = JOptionPane.showInputDialog("Enter the state name ");
+			List<Person> list = P_list.stream().filter(p_Name -> p_Name.state.equals(cityOrState))
+					.collect(Collectors.toList());
+			for (Person p : list) {
+				System.out.println("Person name: " + p.First_name + " " + p.Last_name);
 			}
-			System.out.println("The number of the contact persons in " + cityOrState + " are " + cityOrStateCount);
-			System.out.println("In " + cityOrState + " we found " + hashTable);
 			break;
 
 		/*
@@ -171,21 +244,27 @@ class Addressbook1 {
 		 */
 		case "3":
 			cityOrState = JOptionPane.showInputDialog("Enter the city or state name");
-			for (int i = 0; i < P_list.size(); i++) {
-				Person p = P_list.get(i);
-				if ((cityOrState.equals(p.city)) || cityOrState.equals(p.state)) {
-					System.out.println(p.First_name.concat(p.Last_name));
-					hashTable.put(i + 1, p.phoneNum);
-				} else
-					continue;
+			List<Person> list3 = P_list.stream().filter(p_Name -> p_Name.state.equals(cityOrState))
+					.collect(Collectors.toList());
+			for (Person p : list3) {
+				System.out.println("\nPerson Name: " + p.First_name + " " + p.phoneNum);
 			}
-			System.out.println("In " + cityOrState + " we found " + hashTable);
 			break;
+		/*
+		 * UC11 :- Ability to sort the entries in the address book alphabetically by
+		 * Person’s name
+		 */
+		case "4":
+			List<String> sortedPersonNameList = P_list.stream().map(c -> c.First_name.concat(c.Last_name)).sorted()
+					.collect(Collectors.toList());
+			sortedPersonNameList.forEach(System.out::println);
+	
 		default:
 			System.out.println("Invalid user input");
 			break;
 		}
 	}
+
 }
 
 /*
@@ -196,10 +275,10 @@ class Addressbook1 {
  */
 class AddressHashMap {
 	static String First_name, Last_name, address, phoneNum, zip, city, state, email;
-	HashMap<String, Person> map = new HashMap<>();
+	static HashMap<String, ArrayList<Person>> map = new HashMap<>();
+//	static ArrayList<Person> P_list = new ArrayList<>();
 
 	public void AddPresonHashmap() {
-
 		Scanner sc = new Scanner(System.in);
 		System.out.print("How many person you want to add :");
 		int Count = sc.nextInt();
@@ -227,17 +306,28 @@ class AddressHashMap {
 				break;
 			}
 			// add the above PersonInfo object to arraylist
-			map.put(First_name.concat(Last_name), data);
+			if (!map.containsKey(data.getFirst_name())) {
+				map.put(data.getFirst_name(), new ArrayList<>());
+			}
+			map.get(data.getFirst_name()).add(data);
 		}
-		printMap(map);
+		System.out.println(map);
 	}
 
-	public void printMap(HashMap<String, Person> map) {
-		for (String map1 : map.keySet()) {
-			System.out.println("Key: " + map1 + " Value: " + map.get(map1));
+	static void sortByCity() {
+
+		for (Entry<String, ArrayList<Person>> entry : map.entrySet()) {
+			ArrayList<Person> value = entry.getValue();
+			List<Person> sortedList = value.stream().sorted(Comparator.comparing(Person::getFirst_name))
+					.collect(Collectors.toList());
+
+			for (Person contact : sortedList) {
+				System.out.println("First Name: " + contact.getFirst_name());
+				System.out.println("City Name: " + contact.getCity());
+				System.out.println("-------------------------------");
+			}
 		}
 	}
-
 }
 
 class AddressBook {
@@ -252,15 +342,16 @@ class AddressBook {
 //					"Bangalour", "Karnataka", "Ashwath@xyz.in");
 //			s1.print();
 
+		
 		Addressbook1 b = new Addressbook1();
 //		b.AddPreson(); // first person// UC2
 //		b.AddPreson(); // second person // UC2
 //		b.EditePeson("ashwath", "naidu"); // UC3
 //		b.DeletePerson("naidu"); // UC4
 		b.addMultiPerson(); // UC5
-		b.searchPersonsCity(); // UC8 and UC9
+		b.searchPersonsCity(); // UC8 - UC12
 
-//		AddressHashMap n = new AddressHashMap();
-//		n.AddPresonHashmap();// UC6 and UC7
+		AddressHashMap n = new AddressHashMap();
+		n.AddPresonHashmap();// UC6 - UC7
 	}
 }
