@@ -258,7 +258,15 @@ class Addressbook1 {
 			List<String> sortedPersonNameList = P_list.stream().map(c -> c.First_name.concat(c.Last_name)).sorted()
 					.collect(Collectors.toList());
 			sortedPersonNameList.forEach(System.out::println);
-	
+			break;
+		/*
+		 * UC12 :- Ability to sort the entries in the address book by City, State, or
+		 * Zip
+		 */
+		case "5":
+			List<String> sortedZipCode = P_list.stream().map(c -> c.zip).sorted().collect(Collectors.toList());
+			sortedZipCode.forEach(System.out::println);
+			break;
 		default:
 			System.out.println("Invalid user input");
 			break;
@@ -341,17 +349,17 @@ class AddressBook {
 //			Person s1 = new Person("Ashwath", "Naidu", "123ash,nea rsai baba temple road,", "934058XXX", "560037",
 //					"Bangalour", "Karnataka", "Ashwath@xyz.in");
 //			s1.print();
-
 		
 		Addressbook1 b = new Addressbook1();
 //		b.AddPreson(); // first person// UC2
 //		b.AddPreson(); // second person // UC2
 //		b.EditePeson("ashwath", "naidu"); // UC3
 //		b.DeletePerson("naidu"); // UC4
-		b.addMultiPerson(); // UC5
+//		b.addMultiPerson(); // UC5
 		b.searchPersonsCity(); // UC8 - UC12
 
 		AddressHashMap n = new AddressHashMap();
 		n.AddPresonHashmap();// UC6 - UC7
+//		n.sortByCity();
 	}
 }
