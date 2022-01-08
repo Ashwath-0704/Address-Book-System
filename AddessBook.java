@@ -284,7 +284,7 @@ class AddressHashMap1 {
 	}
 }
 
-public class AddessBookNew {
+public class AddessBook {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 
