@@ -1,13 +1,14 @@
 package AddressBook;
 
-import java.io.PrintWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.Map.Entry;
-import java.util.function.Function;
-
 import javax.swing.*;
 
-import Model.Employee;
+import Service.Person;
 
 import java.util.stream.*;
 
@@ -18,105 +19,13 @@ import java.util.stream.*;
  * Review Git Check In Comments and Version History will be monitored
  * 
  */
-class Person {
 
-	String First_name, Last_name, address, phoneNum, zip, city, state, email;
-
-	public Person(String F_name, String L_name, String Addr, String MobileNum, String ZipCode, String City,
-			String State, String Mail) {
-		First_name = F_name;
-		Last_name = L_name;
-		address = Addr;
-		phoneNum = MobileNum;
-		zip = ZipCode;
-		city = City;
-		state = State;
-		email = Mail;
-	}
-
-	public String getFirst_name() {
-		return First_name;
-	}
-
-	public void setFirst_name(String first_name) {
-		First_name = first_name;
-	}
-
-	public String getLast_name() {
-		return Last_name;
-	}
-
-	public void setLast_name(String last_name) {
-		Last_name = last_name;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getPhoneNum() {
-		return phoneNum;
-	}
-
-	public void setPhoneNum(String phoneNum) {
-		this.phoneNum = phoneNum;
-	}
-
-	public String getZip() {
-		return zip;
-	}
-
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	@Override
-	public String toString() {
-		return "Person [First_name=" + First_name + ", Last_name=" + Last_name + ", address=" + address + ", phoneNum="
-				+ phoneNum + ", zip=" + zip + ", city=" + city + ", state=" + state + ", email=" + email + "]";
-	}
-
-	public void print() {
-		System.out.println("\nFirst Name : " + First_name + "\nLast Name : " + Last_name + "\nAddress : " + address
-				+ "\nEmial : " + email + "\nPhone No : " + phoneNum + "\nZip Code : " + zip + "\nCity : " + city
-				+ "\nState : " + state);
-		System.out.println("\n\n*****************************************************************************");
-	}
-}
-
-class Addressbook1 {
-
+class Addressbook {
+	final static String FILE_PATH = "C:\\Users\\hp\\OneDrive\\BridgeLabz\\eclipse-workspace\\AddressBook\\src\\AddressBook\\AddressBookeOutputData.txt";
 	static ArrayList<Person> P_list = new ArrayList<>();
-	static String First_name, Last_name, address, phoneNum, zip, city, state, email;
-	static int cityAndStateCount = 0;
+//	static String First_name, Last_name, address, phoneNum, zip, city, state, email;
+//	static int cityAndStateCount = 0;s
+	static Scanner sc = new Scanner(System.in);
 
 	/*
 	 * UC2 :- Ability to add a new Contact to Address Book - Use Console to add
@@ -124,32 +33,24 @@ class Addressbook1 {
 	 * manage relationship between AddressBook and Contact Person
 	 */
 	public void AddPreson() {
-
-		First_name = JOptionPane.showInputDialog("Enter First name");
-		Last_name = JOptionPane.showInputDialog("Enter Last name");
-		address = JOptionPane.showInputDialog("Enter address");
-		phoneNum = JOptionPane.showInputDialog("Enter phone number");
-		zip = JOptionPane.showInputDialog("Enter zip");
-		city = JOptionPane.showInputDialog("Enter city");
-		state = JOptionPane.showInputDialog("Enter state");
-		email = JOptionPane.showInputDialog("Enter Mail");
-
-		Person data = new Person(First_name, Last_name, address, phoneNum, zip, city, state, email);
-//		Set<Person> updatedMarks= P_list.stream()
-//              .filter(t->Collections.frequency(P_list, data)).collect(Collectors.toSet());
+		Person data1 = new Person("Krishna", "Reddy", "Near more super market", "900XXXXXXX", "560037", "Bangeluru",
+				"Karnataka", "XYZ@Domain.com");
+		Person data2 = new Person("Raja", "Kumar", "sai baba temple road,Kundhalli gate", "885XXXXXXX", "560001",
+				"Hampi", "Andhra pradesh", "APC@Domain.com");
 
 //		if (P_list.contains(First_name.concat(Last_name))) {
 //			System.out.println("\nError : " + First_name + " " + Last_name + " already exists on this address book.");
-////			break;
+//			break;
 //		}
-
 		// add the above PersonInfo object to arraylist
-		P_list.add(data);
-
-		P_list.toString();
-//		for (Person p : P_list) {
-//			p.print();
-//		}
+		P_list.add(data1);
+		P_list.add(data2);
+		try {
+			addArrayListInToFile(P_list);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -158,8 +59,8 @@ class Addressbook1 {
 	 */
 	public void EditePeson(String name, String name1) {
 		for (Person i : P_list) {
-			if (name.equals(i.First_name)) {
-				i.First_name = name1;
+			if (name.equals(i.getFirst_name())) {
+				i.setFirst_name(name1);
 				i.print();
 			}
 
@@ -173,7 +74,7 @@ class Addressbook1 {
 	public void DeletePerson(String name) {
 		for (int i = 0; i < P_list.size(); i++) {
 			Person p = P_list.get(i);
-			if (name.equals(p.First_name)) {
+			if (name.equals(p.getFirst_name())) {
 				P_list.remove(i);
 				System.out.println("Person got deleted");
 				System.out.println(P_list);
@@ -188,12 +89,11 @@ class Addressbook1 {
 	 * contact persons in Address Books
 	 */
 	public void addMultiPerson() {
-		Scanner sc = new Scanner(System.in);
-		System.out.print("How many person you want to add :");
-		int Count = sc.nextInt();
-		for (int i = 1; i <= Count; i++) {
-			AddPreson();
-		}
+//		System.out.print("How many person you want to add :");
+//		int Count = sc.nextInt();
+//		for (int i = 1; i <= Count; i++) {
+		AddPreson();
+//		}
 		for (Person p : P_list) {
 			p.print();
 		}
@@ -202,12 +102,12 @@ class Addressbook1 {
 	/*
 	 * Ability to search Person in a City or State
 	 */
-	public void searchPersonsCity() {
-		Hashtable<Integer, Person> hashTable = new Hashtable<Integer, Person>();
+	public void searchPersonsCity() throws IOException {
+//		Hashtable<Integer, Person> hashTable = new Hashtable<Integer, Person>();
 
-		String name, cityOrState, personName;
+		String name, cityOrState, personName, stateName;
 		name = JOptionPane.showInputDialog(
-				"choose what you want to search \nFind city or state by person? -> press (1) \nFind perons by city or state? -> press  (2)\nFind the contact persons by city or state? -> (3)\nFind the sorted the by city's? --> (4)\nFind the sorted the by zip code? --> (5)");
+				"choose what you want to search \nFind city or state by person? -> press (1) \nFind perons by city or state? -> press  (2)\nFind the contact persons by city or state? -> (3)\nFind the sorted the by city's? --> (4)\nFind the sorted the by zip code? --> (5)\nTo display the data press -->(6)");
 		switch (name) {
 		/*
 		 * UC8 :- Ability to search Person in a City or State across the multiple
@@ -217,10 +117,10 @@ class Addressbook1 {
 			personName = JOptionPane
 					.showInputDialog("Enter the person first and last name without space (eg:- KrishnaReddy)");
 			List<Person> list1 = P_list.stream()
-					.filter(p_Name -> p_Name.First_name.concat(Last_name).equals(personName))
+					.filter(p_Name -> p_Name.getFirst_name().concat(p_Name.getLast_name()).equals(personName))
 					.collect(Collectors.toList());
 			for (Person p : list1) {
-				System.out.println(personName + " found in city : " + p.city + " and state : " + p.state);
+				System.out.println(personName + " found in city : " + p.getCity() + " and state : " + p.getState());
 //				hashTable.put(, p)
 			}
 			break;
@@ -231,10 +131,10 @@ class Addressbook1 {
 		 */
 		case "2":
 			cityOrState = JOptionPane.showInputDialog("Enter the state name ");
-			List<Person> list = P_list.stream().filter(p_Name -> p_Name.state.equals(cityOrState))
+			List<Person> list = P_list.stream().filter(p_Name -> p_Name.getState().equals(cityOrState))
 					.collect(Collectors.toList());
 			for (Person p : list) {
-				System.out.println("Person name: " + p.First_name + " " + p.Last_name);
+				System.out.println("Person name: " + p.getFirst_name() + " " + p.getLast_name());
 			}
 			break;
 
@@ -243,11 +143,12 @@ class Addressbook1 {
 		 * - Search Result will show count by city and by state
 		 */
 		case "3":
-			cityOrState = JOptionPane.showInputDialog("Enter the city or state name");
-			List<Person> list3 = P_list.stream().filter(p_Name -> p_Name.state.equals(cityOrState))
+			stateName = JOptionPane.showInputDialog("Enter the state name");
+			List<Person> list3 = P_list.stream().filter(p_Name -> p_Name.getState().equals(stateName))
 					.collect(Collectors.toList());
 			for (Person p : list3) {
-				System.out.println("\nPerson Name: " + p.First_name + " " + p.phoneNum);
+				System.out.println("\nPerson Name: " + p.getFirst_name().concat(p.getLast_name()) + "\nPhone number : "
+						+ p.getPhoneNum());
 			}
 			break;
 		/*
@@ -255,8 +156,18 @@ class Addressbook1 {
 		 * Person’s name
 		 */
 		case "4":
-			List<String> sortedPersonNameList = P_list.stream().map(c -> c.First_name.concat(c.Last_name)).sorted()
-					.collect(Collectors.toList());
+			List<Object> sortedPersonNameList = P_list.stream().map(c -> {
+				Person person = new Person();
+				person.setFirst_name(c.getFirst_name());
+				person.setLast_name(c.getLast_name());
+				person.setAddress(c.getAddress());
+				person.setEmail(c.getEmail());
+				person.setPhoneNum(c.getPhoneNum());
+				person.setZip(c.getZip());
+				person.setCity(c.getCity());
+				person.setState(c.getState());
+				return person;
+			}).sorted(Comparator.comparing(Person::getFirst_name)).collect(Collectors.toList());
 			sortedPersonNameList.forEach(System.out::println);
 			break;
 		/*
@@ -264,8 +175,23 @@ class Addressbook1 {
 		 * Zip
 		 */
 		case "5":
-			List<String> sortedZipCode = P_list.stream().map(c -> c.zip).sorted().collect(Collectors.toList());
+			List<Object> sortedZipCode = P_list.stream().map(c -> {
+				Person person = new Person();
+				person.setFirst_name(c.getFirst_name());
+				person.setLast_name(c.getLast_name());
+				person.setAddress(c.getAddress());
+				person.setEmail(c.getEmail());
+				person.setPhoneNum(c.getPhoneNum());
+				person.setZip(c.getZip());
+				person.setCity(c.getCity());
+				person.setState(c.getState());
+				return person;
+			}).sorted(Comparator.comparing(Person::getZip).thenComparing(Person::getState))
+					.collect(Collectors.toList());
 			sortedZipCode.forEach(System.out::println);
+			break;
+		case "6":
+			printData();
 			break;
 		default:
 			System.out.println("Invalid user input");
@@ -273,6 +199,26 @@ class Addressbook1 {
 		}
 	}
 
+	/*
+	 * UC13 Ability to Read or Write the Address Book with Persons Contact into a
+	 * File using File IO - Using Java File IO
+	 */
+	public static <T> void addArrayListInToFile(ArrayList<T> emplyDate) throws IOException {
+		FileWriter writer = new FileWriter(FILE_PATH);
+		emplyDate.forEach(data -> {
+			try {
+				writer.write(data + System.lineSeparator());
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.err.println("Invaid input");
+			}
+		});
+		writer.close();
+	}
+
+	public static void printData() throws IOException {
+		Files.lines(new File(FILE_PATH).toPath()).forEach(System.out::println);
+	}
 }
 
 /*
@@ -281,13 +227,13 @@ class Addressbook1 {
  * of Address Book Name to Address Book
  * 
  */
-class AddressHashMap {
+class AddressHashMap1 {
 	static String First_name, Last_name, address, phoneNum, zip, city, state, email;
 	static HashMap<String, ArrayList<Person>> map = new HashMap<>();
+	static Scanner sc = new Scanner(System.in);
 //	static ArrayList<Person> P_list = new ArrayList<>();
 
 	public void AddPresonHashmap() {
-		Scanner sc = new Scanner(System.in);
 		System.out.print("How many person you want to add :");
 		int Count = sc.nextInt();
 		for (int i = 1; i <= Count; i++) {
@@ -338,8 +284,8 @@ class AddressHashMap {
 	}
 }
 
-class AddressBook {
-	public static void main(String[] args) {
+public class AddessBookNew {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 
 		/*
@@ -349,17 +295,17 @@ class AddressBook {
 //			Person s1 = new Person("Ashwath", "Naidu", "123ash,nea rsai baba temple road,", "934058XXX", "560037",
 //					"Bangalour", "Karnataka", "Ashwath@xyz.in");
 //			s1.print();
-		
-		Addressbook1 b = new Addressbook1();
+
+		Addressbook b = new Addressbook();
 //		b.AddPreson(); // first person// UC2
 //		b.AddPreson(); // second person // UC2
 //		b.EditePeson("ashwath", "naidu"); // UC3
 //		b.DeletePerson("naidu"); // UC4
-//		b.addMultiPerson(); // UC5
-		b.searchPersonsCity(); // UC8 - UC12
+		b.addMultiPerson(); // UC5
+		b.searchPersonsCity(); // UC8 - UC13
 
-		AddressHashMap n = new AddressHashMap();
-		n.AddPresonHashmap();// UC6 - UC7
+//		AddressHashMap n = new AddressHashMap();
+//		n.AddPresonHashmap();// UC6 - UC7
 //		n.sortByCity();
 	}
 }
