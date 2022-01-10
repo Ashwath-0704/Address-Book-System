@@ -1,0 +1,22 @@
+[
+  {
+    "First_name": "Krishna",
+    "Last_name": "Reddy",
+    "address": "Near more super market",
+    "phoneNum": "900XXXXXXX",
+    "zip": "560037",
+    "city": "Bangeluru",
+    "state": "Karnataka",
+    "email": "XYZ@Domain.com"
+  },
+  {
+    "First_name": "Raja",
+    "Last_name": "Kumar",
+    "address": "sai baba temple road,Kundhalli gate",
+    "phoneNum": "885XXXXXXX",
+    "zip": "560001",
+    "city": "Hampi",
+    "state": "Andhra pradesh",
+    "email": "APC@Domain.com"
+  }
+]

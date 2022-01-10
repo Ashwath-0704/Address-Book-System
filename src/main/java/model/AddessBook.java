@@ -32,7 +32,6 @@ import service.Person;
 class Addressbook {
 	final static String FILE_PATH = "C:\\Users\\hp\\OneDrive\\BridgeLabz\\eclipse-workspace\\AdressBookNew\\src\\main\\java\\service\\AddressBookeOutputData.txt";
 	final static String CSV_FILE_PATH = "C:\\Users\\hp\\OneDrive\\BridgeLabz\\eclipse-workspace\\AdressBookNew\\src\\main\\java\\service\\";
-
 	static ArrayList<Person> P_list = new ArrayList<>();
 	// static String First_name, Last_name, address, phoneNum, zip, city, state,
 	// email;
@@ -278,6 +277,33 @@ class Addressbook {
 		}
 	}
 
+	/**
+	 * UC15 :- Ability to Read or Write the Address Book with Persons Contact as
+	 * JSON File - Use GSON Library
+	 */
+	public void writeDataIntoJsonFile(String jsonFileName) {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		try {
+			Writer writer = new FileWriter(CSV_FILE_PATH + jsonFileName);
+			gson.toJson(P_list, writer); // convert Arraylist to JSON file
+			writer.close(); // close writer
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	// Read the data from JSON files
+	public void readDataFromJsonFile(String jsonFileName) {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		try {
+			System.out.println("Reading data from a JSON file");
+			System.out.println("----------------------------");
+			Person[] data = gson.fromJson(new FileReader(CSV_FILE_PATH + jsonFileName), Person[].class);
+			System.out.println(gson.toJson(data));
+		} catch (IOException e) {
+			System.err.println("File not found in given path");
+		}
+	}
 }
 
 /*
@@ -355,14 +381,16 @@ public class AddessBook {
 		// s1.print();
 
 		Addressbook b = new Addressbook();
-		 b.AddPreson(); // first person// UC2
+		b.AddPreson(); // first person// UC2
 		// b.AddPreson(); // second person // UC2
 		// b.EditePeson("ashwath", "naidu"); // UC3
 		// b.DeletePerson("naidu"); // UC4
 		// b.addMultiPerson(); // UC5
 		// b.searchPersonsCity(); // UC8 - UC13
-		 b.writeDataIntoCSVfile("AddressBookDataCSV.csv"); // UC14 (Writing file)
-		 b.readCSVDataFromTheFile("AddressBookDataCSV.csv"); // UC14 (Reading file)
+//		 b.writeDataIntoCSVfile("AddressBookDataCSV.csv"); // UC14 (Writing file)
+//		 b.readCSVDataFromTheFile("AddressBookDataCSV.csv"); // UC14 (Reading file)
+		 b.writeDataIntoJsonFile("AddressBookDataJSON.json"); // UC15 (Writing file)
+		 b.readDataFromJsonFile("AddressBookDataJSON.json"); //UC15 Reading file)
 
 		// AddressHashMap n = new AddressHashMap();
 		// n.AddPresonHashmap();// UC6 - UC7
