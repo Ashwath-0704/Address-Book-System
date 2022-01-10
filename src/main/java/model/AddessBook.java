@@ -387,8 +387,8 @@ public class AddessBook {
 		// b.DeletePerson("naidu"); // UC4
 		// b.addMultiPerson(); // UC5
 		// b.searchPersonsCity(); // UC8 - UC13
-//		 b.writeDataIntoCSVfile("AddressBookDataCSV.csv"); // UC14 (Writing file)
-//		 b.readCSVDataFromTheFile("AddressBookDataCSV.csv"); // UC14 (Reading file)
+		 b.writeDataIntoCSVfile("AddressBookDataCSV.csv"); // UC14 (Writing file)
+		 b.readCSVDataFromTheFile("AddressBookDataCSV.csv"); // UC14 (Reading file)
 		 b.writeDataIntoJsonFile("AddressBookDataJSON.json"); // UC15 (Writing file)
 		 b.readDataFromJsonFile("AddressBookDataJSON.json"); //UC15 Reading file)
 
