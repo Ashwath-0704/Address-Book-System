@@ -42,4 +42,12 @@ public class AddressBookTesting {
 		Assert.assertEquals(3, updatedRowsInDB.size());
 	}
 
+	@Test // UC20
+	public void givenAddressBookdata_shouldAddIntoAddressDatabase_ReturnCountofAddressBook() throws SQLException {
+		AddessBook addessBook = new AddessBook();
+		LocalDate startDate = LocalDate.of(2019, 03, 01);
+		int updatedRowsInDB = addessBook.addDataIntoAddressBook("Harini", "Reddy", startDate, "Family", "BTM_Layout","Bengaluru", "Karanatak", "560001", "852147963", "xyzgmail.com");
+		Assert.assertEquals(1, updatedRowsInDB);
+	}
+
 }

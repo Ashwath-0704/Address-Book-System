@@ -475,6 +475,28 @@ public class AddessBook {
 		return getEmployeeListData(query);
 	}
 
+	/*
+		UC20 :- Ability to Add new Contact to the Address Book Database
+	*/
+	public int addDataIntoAddressBook(String firstName, String lastName, LocalDate startDate, String Type,String address, String city, String state, String zip_code, String phoneNumber, String email) throws SQLException  {
+		String update = String.format("INSERT INTO address_book (`firstName`, `lastName`, `stateDate`, `Department_Type`, `address`, `city`, `state`, `zip`, `phoneNumber`, `email`) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",firstName, lastName, startDate, Type, address, city, state, zip_code, phoneNumber, email);
+		System.out.println(update);
+		int rs = 0;
+		Connection connection = null;
+		 try {
+			connection = getConnection();
+			connection.setAutoCommit(false);
+			Statement statement = connection.createStatement();
+			rs = statement.executeUpdate(update);
+			connection.commit();
+			System.out.println("Transaction is commited.");
+		 } catch (Exception e) {
+			e.printStackTrace();	
+			connection.rollback();
+		 }
+		 return rs;
+	}
+
 	
 	public static void main(String[] args) throws IOException {
 		/*
