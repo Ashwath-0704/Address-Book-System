@@ -440,7 +440,7 @@ public class AddessBook {
 	}
 
 	/*
-		UC17 :- Ability to update the Contact Information in. the address book for a person and ensure that the Contact Information in the memory is in Sync with the DB
+		UC17 :- Ability to update the Contact Information in the address book for a person and ensure that the Contact Information in the memory is in Sync with the DB
 	*/
 	public long updateAddressBookData(String Type, String firstName, String lastName) {
 		String query = String.format(
@@ -456,6 +456,17 @@ public class AddessBook {
 		}
 		return 0;
 	}
+
+	/*
+		UC18 :- Ability to Retrieve Contacts from the Database that were added in a particular period
+	*/
+	public List<Person> queryAddressBookDBReturnParticularPeriod(LocalDate startDate, LocalDate endDate)
+			throws SQLException {
+		String query = String.format("SELECT * FROM address_book WHERE stateDate BETWEEN '%s' AND '%s';",
+				Date.valueOf(startDate), Date.valueOf(endDate));
+		return getEmployeeListData(query);
+	}
+
 	
 	public static void main(String[] args) throws IOException {
 		/*
