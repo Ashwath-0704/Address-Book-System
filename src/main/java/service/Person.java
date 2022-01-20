@@ -123,7 +123,7 @@ public class Person {
 		System.out.println("\nFirst Name : " + First_name + "\nLast Name : " + Last_name + "\nAddress : " + address
 				+ "\nEmial : " + email + "\nPhone No : " + phoneNum + "\nZip Code : " + zip + "\nCity : " + city
 				+ "\nState : " + state);
-		System.out.println("\n\n*****************************************************************************");
+		System.out.println("\n\n****************************************************************************");
 	}
 
 }

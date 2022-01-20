@@ -439,6 +439,24 @@ public class AddessBook {
 		return null;
 	}
 
+	/*
+		UC17 :- Ability to update the Contact Information in the address book for a person and ensure that the Contact Information in the memory is in Sync with the DB
+	*/
+	public long updateAddressBookData(String Type, String firstName, String lastName) {
+		String query = String.format(
+				"UPDATE address_book SET Department_Type='%s' WHERE firstName='%s' and lastName='%s';", Type, firstName,
+				lastName);
+		Connection connection;
+		try {
+			connection = getConnection();
+			Statement statement = connection.createStatement();
+			return statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
 	public static void main(String[] args) throws IOException {
 		/*
 		 * UC1 Ability to create a Contacts in Address Book with first and last names,
