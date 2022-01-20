@@ -2,9 +2,17 @@ package service;
 
 public class Person {
 
-	String First_name, Last_name, address, phoneNum, zip, city, state, email;
+	String First_name;
+	String Last_name;
+	String address;
+	String phoneNum;
+	String zip;
+	String city;
+	String state;
+	String email;
+	private String type;
 
-	
+
 	public Person() {
 		super();
 	}
@@ -20,7 +28,18 @@ public class Person {
 		state = State;
 		email = Mail;
 	}
-
+	public Person(String F_name, String L_name, String Addr, String MobileNum, String ZipCode, String City,
+				  String State, String Mail,String Type) {
+		First_name = F_name;
+		Last_name = L_name;
+		address = Addr;
+		phoneNum = MobileNum;
+		zip = ZipCode;
+		city = City;
+		state = State;
+		email = Mail;
+		type = Type;
+	}
 	public String getFirst_name() {
 		return First_name;
 	}
@@ -87,8 +106,17 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return "Person {First_name=" + First_name + ", Last_name=" + Last_name + ", address=" + address + ", phoneNum="
-				+ phoneNum + ", zip=" + zip + ", city=" + city + ", state=" + state + ", email=" + email + "}";
+		return "Person{" +
+				"First_name='" + First_name + '\'' +
+				", Last_name='" + Last_name + '\'' +
+				", address='" + address + '\'' +
+				", phoneNum='" + phoneNum + '\'' +
+				", zip='" + zip + '\'' +
+				", city='" + city + '\'' +
+				", state='" + state + '\'' +
+				", email='" + email + '\'' +
+				", type='" + type + '\'' +
+				'}';
 	}
 
 	public void print() {

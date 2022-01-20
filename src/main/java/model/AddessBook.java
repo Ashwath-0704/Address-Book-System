@@ -6,6 +6,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -19,6 +27,7 @@ import com.google.gson.GsonBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
+import service.IOService;
 import service.Person;
 
 /*
@@ -312,7 +321,7 @@ class Addressbook {
  * of Address Book Name to Address Book
  *
  */
-class AddressHashMap1 {
+class AddressHashMap {
 	static String First_name, Last_name, address, phoneNum, zip, city, state, email;
 	static HashMap<String, ArrayList<Person>> map = new HashMap<>();
 	static Scanner sc = new Scanner(System.in);
@@ -357,7 +366,7 @@ class AddressHashMap1 {
 
 		for (Entry<String, ArrayList<Person>> entry : map.entrySet()) {
 			ArrayList<Person> value = entry.getValue();
-			List<Person> sortedList = value.stream().sorted(Comparator.comparing(Person::getFirst_name))
+			List<Person> sortedList = value.stream().sorted(Comparator.comparing(Person::getCity))
 					.collect(Collectors.toList());
 
 			for (Person contact : sortedList) {
@@ -367,9 +376,69 @@ class AddressHashMap1 {
 			}
 		}
 	}
+
 }
 
 public class AddessBook {
+	
+	Person person = new Person();
+
+	public static void connectToMysql() {
+		try {
+			Class.forName(IOService.DRIVER_IO.file);
+			System.out.println("Driver loaded");
+			getConnection();
+		} catch (SQLException e) {
+			System.out.println("An error occurred while connecting MySQL databse");
+			e.getMessage();
+		} catch (ClassNotFoundException e) {
+			System.out.println("cannot find the driver in the class path !");
+			e.getMessage();
+		}
+
+	}
+
+	private static Connection getConnection() throws SQLException {
+		Connection connection = DriverManager.getConnection(IOService.DATABASE_IO.url, IOService.DATABASE_IO.userName,
+				IOService.DATABASE_IO.password);
+		System.out.println("Successfully connected to MySQL database test" + connection);
+		return connection;
+	}
+
+	private static List<Person> getEmployeeListData(String query) throws SQLException {
+		Connection connection;
+		List<Person> people = new ArrayList<>();
+		connection = getConnection();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(query);
+		while (resultSet.next())
+			people.add(new Person(resultSet.getString("firstName"), resultSet.getString("lastName"),
+					resultSet.getString("Department_Type"), resultSet.getString("address"), resultSet.getString("city"),
+					resultSet.getString("state"), resultSet.getString("zip"), resultSet.getString("phoneNumber"),
+					resultSet.getString("email")));
+		System.out.println(people.size());
+		people.forEach(System.out::println);
+		statement.close();
+		resultSet.close();
+		connection.close();
+		return people;
+	}
+	
+	/*
+		UC16 :- Ability for the AddressBook Service to rerieve all the Entries from the DB
+	*/
+	public static List<Person> readAddressBookData(IOService databaseIo) {
+		String query = "SELECT * FROM address_book;";
+		try {
+			List<Person> people = getEmployeeListData(query);
+			return people;
+		} catch (SQLException e) {
+			System.out.println("An error occurred while connecting MySQL databse");
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public static void main(String[] args) throws IOException {
 		/*
 		 * UC1 Ability to create a Contacts in Address Book with first and last names,
@@ -381,19 +450,22 @@ public class AddessBook {
 		// s1.print();
 
 		Addressbook b = new Addressbook();
-		b.AddPreson(); // first person// UC2
 		// b.AddPreson(); // second person // UC2
 		// b.EditePeson("ashwath", "naidu"); // UC3
 		// b.DeletePerson("naidu"); // UC4
 		// b.addMultiPerson(); // UC5
 		// b.searchPersonsCity(); // UC8 - UC13
-		 b.writeDataIntoCSVfile("AddressBookDataCSV.csv"); // UC14 (Writing file)
-		 b.readCSVDataFromTheFile("AddressBookDataCSV.csv"); // UC14 (Reading file)
-		 b.writeDataIntoJsonFile("AddressBookDataJSON.json"); // UC15 (Writing file)
-		 b.readDataFromJsonFile("AddressBookDataJSON.json"); //UC15 Reading file)
+//		 b.writeDataIntoCSVfile("AddressBookDataCSV.csv"); // UC14 (Writing file)
+//		 b.readCSVDataFromTheFile("AddressBookDataCSV.csv"); // UC14 (Reading file)
+//		 b.writeDataIntoJsonFile("AddressBookDataJSON.json"); // UC15 (Writing file)
+//		 b.readDataFromJsonFile("AddressBookDataJSON.json"); //UC15 Reading file)
 
-		// AddressHashMap n = new AddressHashMap();
-		// n.AddPresonHashmap();// UC6 - UC7
-		// n.sortByCity();
+//		AddressHashMap n = new AddressHashMap();
+//		n.AddPresonHashmap();// UC6 - UC7
+//		n.sortByCity();
+
+//		readAddressBookData(IOService.DATABASE_IO); // 
+
 	}
+
 }
