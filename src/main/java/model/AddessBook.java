@@ -467,6 +467,14 @@ public class AddessBook {
 		return getEmployeeListData(query);
 	}
 
+	/*
+		UC19 :- Ability to Retrieve number of Contacts in the Database by City or State
+	*/
+	public List<Person> queryAddressBookDataUsingPreparedStatemnt(String city) throws SQLException {
+		String query = String.format("SELECT * FROM address_book WHERE  city = '%s';", city);
+		return getEmployeeListData(query);
+	}
+
 	
 	public static void main(String[] args) throws IOException {
 		/*

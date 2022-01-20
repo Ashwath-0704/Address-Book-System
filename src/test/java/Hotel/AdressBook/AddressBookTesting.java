@@ -34,5 +34,12 @@ public class AddressBookTesting {
 		List<Person> updatedRowsInDB = addessBook.queryAddressBookDBReturnParticularPeriod(startDate, endDate);
 		Assert.assertEquals(4, updatedRowsInDB.size());
 	}
-	
+
+	@Test // UC19
+	public void givenEmployeeName_shouldMatchSyncWithDBPreparedStatemnt() throws SQLException {
+		AddessBook addessBook = new AddessBook();
+		List<Person> updatedRowsInDB = addessBook.queryAddressBookDataUsingPreparedStatemnt("Kurnool");
+		Assert.assertEquals(3, updatedRowsInDB.size());
+	}
+
 }
