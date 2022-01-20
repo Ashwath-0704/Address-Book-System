@@ -440,7 +440,7 @@ public class AddessBook {
 	}
 
 	/*
-		UC17 :- Ability to update the Contact Information in the address book for a person and ensure that the Contact Information in the memory is in Sync with the DB
+		UC17 :- Ability to update the Contact Information in. the address book for a person and ensure that the Contact Information in the memory is in Sync with the DB
 	*/
 	public long updateAddressBookData(String Type, String firstName, String lastName) {
 		String query = String.format(
