@@ -1,3 +1,6 @@
-"First_name","Last_name","Address","Phone_Number","Zip code","City","State","Email"
-"Krishna","Reddy","Near more super market","900XXXXXXX","560037","Bangeluru","Karnataka","XYZ@Domain.com"
-"Raja","Kumar","sai baba temple road,Kundhalli gate","885XXXXXXX","560001","Hampi","Andhra pradesh","APC@Domain.com"
+First_name,Last_name,Address,Phone_Number,Zip code,City,State,Email
+Krishna,Reddy,Near more super market,900XXXXXXX,560037,Bangeluru,Karnataka,XYZ@Domain.com
+Raja,Kumar,"sai baba temple road,Kundhalli gate",885XXXXXXX,560001,Hampi,Andhra pradesh,APC@Domain.com
+,,,,,,,
+,,,,,,,
+,,.,,,,,
