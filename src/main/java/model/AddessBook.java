@@ -40,13 +40,9 @@ import service.IOService;
 import service.Person;
 
 /**
- *@purpose   UC1 :- Ability to create a Contacts in AddressBook with first and last names, address,city, state, zip, phone number and email...
- *		 	   Every UC is in a separate Git Branch and then merged with main
- * 		 	   Naming Convention, Indentation, etc Code Hygiene will be checked during
- * 		 	   Review Git Check In Comments and Version History will be monitored
- * 
+ *@purpose   UC1 :- Ability to create a Contacts in AddressBook with first and last names, address,city, state, zip, phone number and email... Every UC is in a separate Git Branch and then merged with main Naming Convention, Indentation, etc Code Hygiene will
+ *		be checked during Review Git Check In Comments and Version History will be monitored
  * @return It provied the person details of each address book
- * 
  */
 class Addressbook {
 	
@@ -58,7 +54,6 @@ class Addressbook {
 	 * @purpose -> UC2 :- Ability to add a new Contact to Address Book - Use Console to add
 	 * 			   person details from AddressBookMain class - Use Object Oriented Concepts to
 	 * 			   manage relationship between AddressBook and Contact Person
-	 * 
 	 * @return ->  This function returns person data that stord into ArrayList (ArrayList<Person> P_list)
 	 */
 	public void AddPreson() {
@@ -80,10 +75,8 @@ class Addressbook {
 	/**
 	 * @purpose -> UC3 :- Ability to edit existing contact person using their name
 	 * @param name -> user provides existing data
-	 * @param name1 -> user provides new data
-	 * 
-	 * @return  It returns the edited values.
-	 * 
+	 * @param name1 -> user provides new data	  
+	 * @return  It returns the edited values. 
 	 */
 	public void EditePeson(String name, String name1) {
 		for (Person i : P_list) {
@@ -96,11 +89,8 @@ class Addressbook {
 	
 	/**
 	 * @purpose -> UC4 :- Ability to delete a person using person's name - Use Console to delete a person.
-	 * 
 	 * @param name -> This name provided by user 
-	 * 
 	 * @return -> This method returns an deleted AddressBook person details
-	 * 
 	 */
 	public void DeletePerson(String name) {
 		for (int i = 0; i < P_list.size(); i++) {
@@ -133,9 +123,7 @@ class Addressbook {
 
 	/**
 	 * @purpose -> UC6 :- Ability to search Person in a City or State
-	 * 
 	 * @return -> It returns the peroson data which depends on user input
-	 * 
 	 * @throws IOException
 	 */
 	public void searchPersonsCity() throws IOException {
@@ -146,9 +134,7 @@ class Addressbook {
 		switch (name) {
 	
 	/**
-	 * @purpose -> UC8 :- Ability to search Person in a City or State across the multiple
-	 *  		   AddressBook - Search Result can show multiple person in the city or state
-	 *  
+	 * @purpose -> UC8 :- Ability to search Person in a City or State across the multiple AddressBook - Search Result can show multiple person in the city or state
 	 *  @return -> This case return multiple person data that matches with city or state in AddressBook
 	 */
 		case "1":
@@ -164,10 +150,7 @@ class Addressbook {
 			break;
 		
 		/**
-		 * @purpose -> UC9 :- Ability to view Persons by City or State - Maintain Dictionary of City
-		 *			   and Person as well as State and Person - Use Collection Library to maintain
-		 * 			   Dictionary
-		 * 
+		 * @purpose -> UC9 :- Ability to view Persons by City or State - Maintain Dictionary of City and Person as well as State and Person - Use Collection Library to maintain Dictionary
 		 * @return -> It return an person data which match with state name
 		 * 
 		 */
@@ -181,9 +164,7 @@ class Addressbook {
 			break;
 			
 		/**
-		 * @purpose -> UC10 :- Ability to get number of contact persons i.e. count by City or State  
-		 * 			   Search Result will show count by city and by state
-		 * 
+		 * @purpose -> UC10 :- Ability to get number of contact persons i.e. count by City or State  Search Result will show count by city and by state
 		 * @return -> It return the number of contact person that match with city or state
 		 */
 		case "3":
@@ -197,9 +178,7 @@ class Addressbook {
 			break;
 		
 		/**
-		 * @purpose -> UC11 :- Ability to sort the entries in the address book alphabetically by
-		 * 			   Persons name
-		 * 
+		 * @purpose -> UC11 :- Ability to sort the entries in the address book alphabetically by Persons name
 		 * @return -> It returns the sorted AddressBook i.e,(Person Data) by names 
 		 */
 		case "4":
@@ -221,9 +200,7 @@ class Addressbook {
 		
 		/**
 		 * @purpose -> UC12 :- Ability to sort the entries in the address book by City, State, or Zip
-		 * 
 		 * @return -> It return the sotred AddressBook by city or state or zip code that provided in AddressBook Data
-		 * 
 		 */
 		case "5":
 			List<Object> sortedZipCode = P_list.stream().map(c -> {
@@ -251,15 +228,11 @@ class Addressbook {
 	}
 
 	/**
-	 * @purpose  UC13 Ability to Read or Write the Address Book with Persons Contact into a
-	 * 			 File using File IO - Using Java File IO
-	 * 
+	 * @purpose  UC13 Ability to Read or Write the Address Book with Persons Contact into a File using File IO - Using Java File IO
 	 * @param <T> -> any Class or dataType can be used [ eg : <AddressBook> or <String>] 
 	 * @param emplyDate -> Take as ArrayLIst Data 
 	 * @throws IOException 
-	 * 
 	 * @return -> It writes the ArrayList data into File
-	 * 
 	 */
 	public static <T> void addArrayListInToFile(ArrayList<T> emplyDate) throws IOException {
 		FileWriter writer = new FileWriter(IOService.FILE_PATH.file);
@@ -275,10 +248,8 @@ class Addressbook {
 	}
 
 	/**
-	 * @purpose -> Ability to read the data from the file 
-	 * 
+	 * @purpose -> Ability to read the data from the 
 	 * @throws IOException
-	 * 
 	 * @return -> It prints the data in console whcih is reading the data from the file 
 	 */
 	public static void printData() throws IOException {
@@ -286,11 +257,8 @@ class Addressbook {
 	}
 
 	/**
-	 * @purpose -> Ability to Read/Write the Address Book with Persons Contact as CSV File UC 14
-	 * 			   Use OpenCSV Library
-	 * 
+	 * @purpose -> Ability to Read/Write the Address Book with Persons Contact as CSV File UC 14 Use OpenCSV Library
 	 * @param fileName -> user provides the File Name with extension (Eg:- output.csv)
-	 * 
 	 * @return -> Creates the CSV file in mentioned file path
 	 */
 	public static void writeDataIntoCSVfile(String fileName) {
@@ -318,11 +286,8 @@ class Addressbook {
 
 	/**
 	 * @purpose -> Read the data from CSV files
-	 * 
 	 * @param fileName -> user provides the File Name with extension (Eg:- output.csv)
-	 * 
 	 * @return -> It prints the data in console whcih is reading the data from the CSV File
-	 *  
 	 */
 	public static void readCSVDataFromTheFile(String fileName) {
 		try {
@@ -341,13 +306,9 @@ class Addressbook {
 	}
 
 	/**
-	 * @purpose -> UC15 :- Ability to Read or Write the Address Book with Persons Contact as
-	 * 			   JSON File - Use GSON Library 
-	 * 
+	 * @purpose -> UC15 :- Ability to Read or Write the Address Book with Persons Contact as JSON File - Use GSON Library 
 	 * @param jsonFileName -> user provides the File Name with extension (Eg: output.json)
-	 * 
 	 * @return -> It will write the data into json file and Create an json in mentioned file path
-	 * 
 	 */
 	public void writeDataIntoJsonFile(String jsonFileName) {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -362,9 +323,7 @@ class Addressbook {
 
 	/**
 	 * @purpose -> Read the data from JSON files
-	 * 
 	 * @param jsonFileName -> ser provides the File Name with extension (Eg: output.json)
-	 * 
 	 * @return -> It prints the data in console whcih is reading the data from the JSON File
 	 */
 	public void readDataFromJsonFile(String jsonFileName) {
@@ -383,7 +342,6 @@ class Addressbook {
 
 /**
  * @author Ashwath Naidu <ashwath.bly@gmail.com>
- *
  * @version openjdk 11.0.12 2021-07-20
  * @version OpenJDK Runtime Environment 18.9 (build 11.0.12+7)
  * @version OpenJDK 64-Bit Server VM 18.9 (build 11.0.12+7, mixed mode)
@@ -397,10 +355,8 @@ class AddressHashMap {
 	// static ArrayList<Person> P_list = new ArrayList<>();
 
 	/**
-	 * @purpose -> UC6 :- Refactor to add multiple Address Book to the System. Each Address Book
-	 * 			   has a unique Name - Use Console to add new Address Book - Maintain Dictionary
- 	 * 			   of Address Book Name to Address Book
-	 * 
+	 * @purpose -> UC6 :- Refactor to add multiple Address Book to the System. Each Address Book has a unique Name - Use Console to add new Address Book - Maintain Dictionary
+ 	 * 		of Address Book Name to Address Book
 	 * @return -> It returns the AddressBoook Person Data in the dictionary 
 	 */
 	public void AddPresonHashmap() {
@@ -418,11 +374,8 @@ class AddressHashMap {
 			Person data = new Person(First_name, Last_name, address, phoneNum, zip, city, state, email);
 
 			/**
-			 * @purpose -> UC7 :- Ability to ensure there is no Duplicate Entry of the same Person in a
-			 * 			   particular Address Book - Duplicate Check is done on Person Name while adding
-			 * 			   person to Address Book. - Use Collection Methods to Search Person by Name for
-			 * 			   Duplicate Entry
-			 * 
+			 * @purpose -> UC7 :- Ability to ensure there is no Duplicate Entry of the same Person in a particular Address Book - Duplicate Check is done on Person Name while adding
+			 * 			   person to Address Book. - Use Collection Methods to Search Person by Name for Duplicate Entry
 			 *  @return -> This process will avoid the duplocate person data into AddressBook
 			 */
 			if (map.containsKey(First_name.concat(Last_name))) {
@@ -482,7 +435,6 @@ public class AddessBook {
 	
 	/**
 	 * @return This method will help us into get connection to MySql Database
-	 * 
 	 * @throws SQLException
 	 */
 	private static Connection getConnection() throws SQLException {
@@ -493,9 +445,7 @@ public class AddessBook {
 
 	/**
 	 * @param query -> user has to provid the query which will execute in MySql database and tables
-	 * 
 	 * @return -> Gives all the stored data in MySql DataBase
-	 * 
 	 * @throws SQLException
 	 */
 	private static List<Person> getEmployeeListData(String query) throws SQLException {
@@ -522,9 +472,7 @@ public class AddessBook {
 	
 	/**
 	 * @purpose -> UC16 :- Ability for the AddressBook Service to rerieve all the Entries from the DB
-	 * 
 	 * @param databaseIo -> Take inputs as DataBase Path
-	 * 
 	 * @return -> It return the person data from the DB
 	 */
 	public static List<Person> readAddressBookData(IOService databaseIo) {
@@ -541,11 +489,9 @@ public class AddessBook {
 
 	/**
 	 * @purpose -> UC17 :- Ability to update the Contact Information in the address book for a person and ensure that the Contact Information in the memory is in Sync with the DB
-	 * 
 	 * @param Type -> type of the perosn 
 	 * @param firstName -> First name of the Person
 	 * @param lastName -> Last name of the Perosn
-	 *  
 	 * @return -> It returns the number if affected row in the table
 	 */
 	public long updateAddressBookData(String Type, String firstName, String lastName) {
@@ -565,25 +511,19 @@ public class AddessBook {
 
 	/**
 	 * @purpose -> UC18 :- Ability to Retrieve Contacts from the Database that were added in a particular period
-	 * 
 	 * @param startDate -> Takes the Start Date
 	 * @param endDate -> Takes the End Date 
-	 * 
 	 * @return -> It provides the List of Person Data from database 
 	 * @throws SQLException
 	 */
-	public List<Person> queryAddressBookDBReturnParticularPeriod(LocalDate startDate, LocalDate endDate)
-			throws SQLException {
-		String query = String.format("SELECT * FROM address_book WHERE stateDate BETWEEN '%s' AND '%s';",
-				Date.valueOf(startDate), Date.valueOf(endDate));
+	public List<Person> queryAddressBookDBReturnParticularPeriod(LocalDate startDate, LocalDate endDate) throws SQLException {
+		String query = String.format("SELECT * FROM address_book WHERE stateDate BETWEEN '%s' AND '%s';",Date.valueOf(startDate), Date.valueOf(endDate));
 		return getEmployeeListData(query);
 	}
 
 	/**
 	 * @purpose -> UC19 :- Ability to Retrieve number of Contacts in the Database by City or State
-	 * 
 	 * @param city -> Takes the city name 
-	 * 
 	 * @return -> This will provid List of data from database which matchs the DB
 	 * @throws SQLException
 	 */
@@ -631,25 +571,25 @@ public class AddessBook {
 	
 	public static void main(String[] args) throws IOException {
 		
-		// Person s1 = new Person("Ashwath", "Naidu", "123ash,nea rsai baba temple
-		// road,", "934058XXX", "560037",
-		// "Bangalour", "Karnataka", "Ashwath@xyz.in");
-		// s1.print();
+		Person s1 = new Person("Ashwath", "Naidu", "123ash,nea rsai baba temple
+		road,", "934058XXX", "560037",
+		"Bangalour", "Karnataka", "Ashwath@xyz.in");
+		s1.print();
 
-//		Addressbook b = new Addressbook();
-//		 b.AddPreson(); // second person // UC2
-//		 b.EditePeson("ashwath", "naidu"); // UC3
-		// b.DeletePerson("naidu"); // UC4
-		// b.addMultiPerson(); // UC5
-//		 b.searchPersonsCity(); // UC8 - UC13
-//		 b.writeDataIntoCSVfile("AddressBookDataCSV.csv"); // UC14 (Writing file)
-//		 b.readCSVDataFromTheFile("AddressBookDataCSV.csv"); // UC14 (Reading file)
-//		 b.writeDataIntoJsonFile("AddressBookDataJSON.json"); // UC15 (Writing file)
-//		 b.readDataFromJsonFile("AddressBookDataJSON.json"); //UC15 Reading file)
+		Addressbook b = new Addressbook();
+		 b.AddPreson(); // second person // UC2
+		 b.EditePeson("ashwath", "naidu"); // UC3
+		b.DeletePerson("naidu"); // UC4
+		b.addMultiPerson(); // UC5
+		 b.searchPersonsCity(); // UC8 - UC13
+		 b.writeDataIntoCSVfile("AddressBookDataCSV.csv"); // UC14 (Writing file)
+		 b.readCSVDataFromTheFile("AddressBookDataCSV.csv"); // UC14 (Reading file)
+		 b.writeDataIntoJsonFile("AddressBookDataJSON.json"); // UC15 (Writing file)
+		 b.readDataFromJsonFile("AddressBookDataJSON.json"); //UC15 Reading file)
 
-//		AddressHashMap n = new AddressHashMap();
-//		n.AddPresonHashmap();// UC6 - UC7
-//		AddressHashMap.sortByCity();
+		AddressHashMap n = new AddressHashMap();
+		n.AddPresonHashmap();// UC6 - UC7
+		AddressHashMap.sortByCity();
 
 	}
 
